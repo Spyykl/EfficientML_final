@@ -19,8 +19,8 @@ def convert_adgen(data_dir: Union[str, Path], save_dir: Union[str, Path]):
             with open(out_file, 'wt', encoding='utf-8') as fout:
                 for line in fin:
                     dct = json.loads(line)
-                    sample = {'conversations': [{'role': 'user', 'content': dct['content']},
-                                                {'role': 'assistant', 'content': dct['summary']}]}
+                    sample = {'conversations': [{'role': 'user', 'content': dct['question']},
+                                                {'role': 'system', 'content': dct['answer']}]}
                     fout.write(json.dumps(sample, ensure_ascii=False) + '\n')
 
     data_dir = _resolve_path(data_dir)
@@ -36,4 +36,4 @@ def convert_adgen(data_dir: Union[str, Path], save_dir: Union[str, Path]):
         out_file = save_dir / dev_file.relative_to(data_dir)
         _convert(dev_file, out_file)
 
-convert_adgen('中文短摘要数据集', '中文短摘要数据集_fix')
+convert_adgen('DuReaderQG', 'DuReaderQG_fixed')
